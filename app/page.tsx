@@ -1,95 +1,68 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent
+} from '@/components/ui/card'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { resolve } from 'path'
+import { ModeToggle } from '@/components/mode-toggle'
 
-export default function Home() {
+interface Recipe {
+  title : string,
+  image : string,
+  time : number,
+  description : string,
+  vegan : boolean,
+  id : string
+}
+
+async function getRecipes(): Promise<Recipe[]> {
+  const result = await fetch('http://localhost:4000/recipes')
+
+  await new Promise((resolve) => setTimeout(resolve, 1))
+
+  return result.json()
+}
+
+
+export default async function HomePage() {
+  const recipes = await getRecipes()
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <main>
+      <nav className='flex justify-between'>
+        <h1>Food Recipe</h1>
+        <ModeToggle />
+      </nav>
+      <div className="grid grid-cols-3 gap-8">
+        {recipes.map(recipe => (
+          <Card key={recipe.id} className='flex flex-col justify-between'>
+            <CardHeader className='flex-row gap-4 items-center'>
+              <Avatar>
+                <AvatarImage src={`img/${recipe.image}`} alt={recipe.title.split(' ',)[1]} />
+                <AvatarFallback>{recipe.title.slice(0,2)}</AvatarFallback>
+              </Avatar>
+              <div>
+                <CardTitle>{recipe.title}</CardTitle>
+                <CardDescription className='mt-1'>{recipe.time} To Cook</CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p>{recipe.description}</p>
+            </CardContent>
+            <CardFooter className='flex justify-between'>
+              <Button>View Recipe</Button>
+              {recipe.vegan && <Badge variant={'secondary'}>Vegan!</Badge>}
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+    </main>
   );
 }
