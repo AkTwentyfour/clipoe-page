@@ -50,7 +50,7 @@ export default function Page() {
       {/* hero */}
       <section className="py-5 mb-15 flex flex-col items-center justify-center px-4">
         <h1 className="mb-4 font-medium text-center text-4xl tracking-[-0.14rem] md:text-4xl">
-          Your team's new all-in-one creative solution
+          Your teams new all-in-one creative solution
         </h1>
         <p className="max-w-2xl text-center text-muted-foreground tracking-[-0.01rem] sm:text-lg" ref={ref}>
           Simple plans that scale with your team
