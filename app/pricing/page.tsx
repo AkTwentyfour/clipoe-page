@@ -61,7 +61,7 @@ export default function Page() {
     <main className="container max-w-6xl mx-auto px-4 relative">
       <ModeToggle />
       {/* hero */}
-      <section className="py-5 mb-10 flex flex-col items-center justify-center px-4">
+      <section className="py-5 mb-7 flex flex-col items-center justify-center px-4">
         <h1 className="mb-4 font-medium text-center text-4xl tracking-[-0.14rem] md:text-4xl">
           Your teams new all-in-one creative solution
         </h1>
