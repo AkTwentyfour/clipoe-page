@@ -81,7 +81,7 @@ export default function Page() {
             isSticky ? "h-max scale-100" : " h-auto"
           }`}
         >
-          <BorderTrail className={`bg-blue-500`} size={200} />
+          <BorderTrail className={`bg-blue-600`} size={200} />
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl">Pro</CardTitle>
@@ -131,7 +131,7 @@ export default function Page() {
             </ul>
           </CardContent>
           <CardFooter>
-            <Button className="w-full bg-blue-800 hover:bg-blue-700">
+            <Button className="w-full text-white bg-blue-600 hover:bg-blue-700">
               Get Pro
             </Button>
           </CardFooter>
@@ -143,7 +143,7 @@ export default function Page() {
             isSticky ? "h-max scale-100" : " h-auto"
           }`}
         >
-          <BorderTrail className={`bg-green-500`} size={200} />
+          <BorderTrail className={`bg-green-600`} size={200} />
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-2xl">Agency</CardTitle>
@@ -189,7 +189,7 @@ export default function Page() {
             </ul>
           </CardContent>
           <CardFooter>
-            <Button className="w-full bg-green-800 hover:bg-green-700">
+            <Button className="w-full text-white bg-green-600 hover:bg-green-700">
               Get Agency
             </Button>
           </CardFooter>
