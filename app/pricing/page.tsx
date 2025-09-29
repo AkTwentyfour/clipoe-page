@@ -60,6 +60,7 @@ export default function Page() {
   return (
     <main className="container max-w-6xl mx-auto px-4 relative">
       <ModeToggle />
+
       {/* hero */}
       <section className="py-5 mb-7 flex flex-col items-center justify-center px-4">
         <h1 className="mb-4 font-medium text-center text-4xl tracking-[-0.14rem] md:text-4xl">
@@ -960,6 +961,7 @@ export default function Page() {
           </TableBody>
         </Table>
       </section>
+      
     </main>
   );
 }
