@@ -36,8 +36,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} overflow-visible`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme=""
-          enableSystem
+          defaultTheme="light"
           disableTransitionOnChange
         >
           {children}

@@ -59,7 +59,6 @@ export default function Page() {
 
   return (
     <main className="container max-w-6xl mx-auto px-4 relative">
-      <ModeToggle />
 
       {/* hero */}
       <section className="py-5 mb-7 flex flex-col items-center justify-center px-4">
