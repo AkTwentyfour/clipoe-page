@@ -1,5 +1,6 @@
 "use client";
 
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -167,7 +168,8 @@ const App = () => {
   // Home View
   if (currentView === "home") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4">
+      <div className="flex flex-col gap-2 min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4">
+        {/* <ModeToggle /> */}
         <Card className="w-full max-w-md shadow-xl">
           <CardHeader className="space-y-4 text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-600">
