@@ -16,7 +16,8 @@ export function AnimatedNumber({
   springOptions,
   as = 'span',
 }: AnimatedNumberProps) {
-  const MotionComponent = motion.create(as as keyof JSX.IntrinsicElements);
+  // Fix: Cast 'as' to any to satisfy motion.create's strict typing
+  const MotionComponent = motion.create(as as any);
 
   const spring = useSpring(value, springOptions);
   const display = useTransform(spring, (current) =>
@@ -28,7 +29,7 @@ export function AnimatedNumber({
   }, [spring, value]);
 
   return (
-    <MotionComponent className={cn('tabular-nums', className)}>
+    <MotionComponent className={cn(className)}>
       {display}
     </MotionComponent>
   );
