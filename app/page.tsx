@@ -490,7 +490,7 @@ const App = () => {
               </div>
 
               <Button className="hidden md:block bg-green-600 hover:bg-green-700">
-                Register
+                Login
               </Button>
 
               {/* Mobile Menu Button */}
@@ -522,7 +522,7 @@ const App = () => {
                   Kontak
                 </a>
                 <Button className="w-full mt-2 bg-green-600 hover:bg-green-700">
-                  Register
+                  Login
                 </Button>
               </div>
             )}
@@ -910,7 +910,7 @@ const App = () => {
               </div>
 
               <Button className="hidden md:block bg-green-600 hover:bg-green-700">
-                Register
+                Login
               </Button>
 
               {/* Mobile Menu Button */}
@@ -942,7 +942,7 @@ const App = () => {
                   Kontak
                 </a>
                 <Button className="w-full mt-2 bg-green-600 hover:bg-green-700">
-                  Register
+                  Login
                 </Button>
               </div>
             )}
@@ -1173,7 +1173,7 @@ const App = () => {
               </div>
 
               <Button className="hidden md:block bg-green-600 hover:bg-green-700">
-                Register
+                Login
               </Button>
 
               {/* Mobile Menu Button */}
@@ -1205,7 +1205,7 @@ const App = () => {
                   Kontak
                 </a>
                 <Button className="w-full mt-2 bg-green-600 hover:bg-green-700">
-                  Register
+                  Login
                 </Button>
               </div>
             )}
