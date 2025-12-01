@@ -449,30 +449,6 @@ const App = () => {
   // Home View
   if (currentView === "home") {
     return (
-      // <div className="flex flex-col gap-2 min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-green-50 p-4">
-      //   {/* <ModeToggle /> */}
-      //   <Card className="w-full max-w-md shadow-xl">
-      //     <CardHeader className="space-y-4 text-center">
-      //       <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-600">
-      //         <MapPin className="h-8 w-8 text-white" />
-      //       </div>
-      //       <CardTitle className="text-3xl">
-      //         Sistem Klasifikasi Desa Wisata
-      //       </CardTitle>
-      //       <CardDescription className="text-base">
-      //         Kabupaten Magelang
-      //       </CardDescription>
-      //     </CardHeader>
-      //     <CardContent>
-      //       <Button
-      //         onClick={() => setCurrentView("list")}
-      //         className="h-14 w-full bg-blue-600 text-lg font-semibold hover:bg-blue-700"
-      //       >
-      //         Klasifikasi Desa Wisata
-      //       </Button>
-      //     </CardContent>
-      //   </Card>
-      // </div>
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
         {/* Navbar */}
         <nav className="bg-white shadow-md sticky top-0 z-50 mb-0">
@@ -1652,8 +1628,7 @@ const App = () => {
                       )}
                     </CardContent>
                   </Card>
-
-                  <ScoringTable></ScoringTable>
+                  <ScoringTable scoreId={selectedKriteria.id}></ScoringTable>
                 </motion.div>
               )}
             </AnimatePresence>

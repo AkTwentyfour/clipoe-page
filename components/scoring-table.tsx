@@ -12,300 +12,313 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { number } from "motion/react";
 
 // Data Penilaian Lengkap (Clean Data)
 const penilaianData = [
+  // KRITERIA 1
   {
     no: "1",
-    kriteria: "1.1 Legalitas lembaga/kelompok desa wisata & unit usaha",
-    subKriteria: "1.1.a Legalitas kepemilikan pengelola desa wisata",
-    indikator: "a. Terdapat embrio Pokdarwis\nb. Terdapat Pokdarwis aktif",
+    kriteria: "Kepemilikan dan Kepengurusan oleh Masyarakat",
+    subKriteria: "1.1 Legalitas lembaga/kelompok desa wisata dan unit usaha desa sebagai badan usaha mengelola Desa Wisata dengan berkolaborasi bersama Kelompok Sadar Wisata (Pokdarwis)",
+    indikator: "1.1.a Legalitas kepemilikan pengelola desa wisata",
     poin: 2,
     jawaban: "b. Terdapat Pokdarwis yang sudah aktif",
   },
   {
-    no: "",
-    kriteria: "1.2 Terdapat rencana pengelolaan yang efektif dan transparan",
-    subKriteria: "1.2.a Perencanaan",
-    indikator: "a. Memiliki data kepariwisataan\nb. Memiliki pemetaan potensi",
+    no: "1",
+    kriteria: "",
+    subKriteria: "1.2 Terdapat rencana pengelolaan yang efektif dan transparan",
+    indikator: "1.2.a Perencanaan",
     poin: 2,
     jawaban: "c. Memiliki rencana pengembangan wilayah",
   },
   {
-    no: "",
+    no: "1",
     kriteria: "",
-    subKriteria: "1.2.b Basis data perencanaan",
-    indikator: "a. Memiliki data monografi\nb. Memiliki rencana pembangunan jangka menengah desa",
+    subKriteria: "1.2 Terdapat rencana pengelolaan yang efektif dan transparan",
+    indikator: "1.2.b Basis data perencanaan",
     poin: 2,
-    jawaban: "c. Memiliki RPJM desa yang berisi pengembangan pariwisata secara umum",
+    jawaban: "c. Memiliki rencana pembangunan jangka menengah desa yang berisi pengembangan pariwisata secara umum",
   },
   {
-    no: "",
+    no: "1",
     kriteria: "",
-    subKriteria: "1.2.c Rencana tata ruang",
-    indikator: "a. Terdapat rencana tata ruang wilayah desa\nb. Terdapat konsep zonasi",
+    subKriteria: "1.2 Terdapat rencana pengelolaan yang efektif dan transparan",
+    indikator: "1.2.c Rencana tata ruang",
     poin: 2,
     jawaban: "b. Terdapat konsep zonasi pengembangan wisata",
   },
   {
-    no: "",
-    kriteria: "1.3 Pengelolaan melalui kerjasama pemerintah desa",
-    subKriteria: "1.3.a Proses administrasi bisnis",
-    indikator: "a. Terdapat pencatatan administrasi keanggotaan",
+    no: "1",
+    kriteria: "",
+    subKriteria: "1.3 Pengelolaan melalui kerjasama pemerintah desa dengan pihak yang akan mengelola desa wisata",
+    indikator: "1.3.a Proses administrasi bisnis",
     poin: 2,
     jawaban: "b. Terdapat pencatatan keuangan sederhana (dana masuk dan keluar)",
   },
   {
-    no: "",
+    no: "1",
     kriteria: "",
-    subKriteria: "1.3.b Proses pengelolaan yang profesional",
-    indikator: "a. Terdapat aktivitas koordinasi",
+    subKriteria: "1.3 Pengelolaan melalui kerjasama pemerintah desa dengan pihak yang akan mengelola desa wisata",
+    indikator: "1.3.b Proses pengelolaan yang profesional",
     poin: 2,
-    jawaban: "b. Sudah memiliki pembagian tugas dan fungsi secara profesional, c. Namun belum rutin",
+    jawaban: "b. Sudah memiliki pembagian tugas dan fungsi secara profesional, c. Namun pembagian tugas dan fungsi belum terjadi secara rutin",
   },
   {
-    no: "",
+    no: "1",
     kriteria: "",
-    subKriteria: "1.3.c Mitigasi risiko bencana dan kecelakaan kerja",
-    indikator: "a. Memiliki data potensi kecelakaan\nb. Memiliki rencana mitigasi",
+    subKriteria: "1.3 Pengelolaan melalui kerjasama pemerintah desa dengan pihak yang akan mengelola desa wisata",
+    indikator: "1.3.c Mitigasi risiko bencana dan kecelakaan kerja",
     poin: 2,
     jawaban: "b. Memiliki rencana mitigasi kecelakaan di wilayah desa wisata",
   },
+  // KRITERIA 2
   {
     no: "2",
-    kriteria: "2.1 Partisipasi masyarakat lokal dalam pengelolaan",
-    subKriteria: "2.1.a Jumlah masyarakat yang bergelut di usaha desa wisata",
-    indikator: "-",
+    kriteria: "Partisipasi masyarakat lokal",
+    subKriteria: "2.1 Partisipasi masyarakat lokal dalam pengelolaan desa wisata",
+    indikator: "2.1.a Jumlah masyarakat yang bergelut di usaha desa wisata",
     poin: 4,
-    jawaban: "Terdapat 1 kelompok masyarakat yang didelegasikan khusus mengurus satu aktivitas pariwisata",
+    jawaban: "Terdapat 1 kelompok masyarakat yang didelegasikan khusus mengurus satu aktivitas pariwisata (divisi/bidang)",
   },
   {
-    no: "",
+    no: "2",
     kriteria: "",
-    subKriteria: "2.1.b Pemanfaatan dan pemberdayaan sumber daya lokal",
-    indikator: "-",
+    subKriteria: "2.1 Partisipasi masyarakat lokal dalam pengelolaan desa wisata",
+    indikator: "2.1.b Pemanfaatan dan pemberdayaan sumber daya lokal",
     poin: 4,
     jawaban: "100% makanan minuman, atraksi, dan fasilitas operasional diproduksi di internal desa wisata",
   },
   {
-    no: "",
+    no: "2",
     kriteria: "",
-    subKriteria: "2.1.c Bentuk Partisipasi masyarakat dalam layanan wisata",
-    indikator: "-",
+    subKriteria: "2.1 Partisipasi masyarakat lokal dalam pengelolaan desa wisata",
+    indikator: "2.1.c Bentuk Partisipasi masyarakat dalam layanan wisata",
     poin: 4,
-    jawaban: "Masyarakat berpartisipasi aktif sebagai penyedia homestay, kuliner, atraksi & fasilitas tour",
+    jawaban: "Masyarakat berpartisipasi aktif sebagai penyedia homestay, makanan minuman, atraksi dan fasilitas tour wisata yang terintegrasi dengan desa wisata",
   },
   {
-    no: "",
-    kriteria: "2.2 Keberlanjutan produk-produk wisata",
-    subKriteria: "2.2.a Regenerasi kepengurusan desa wisata",
-    indikator: "-",
+    no: "2",
+    kriteria: "",
+    subKriteria: "2.2 Keberlanjutan produk-produk wisata berbasis masyarakat",
+    indikator: "2.2.a Regenerasi kepengurusan desa wisata",
     poin: 3,
     jawaban: "Ada regenerasi dan terlibat dalam kegiatan dan pengambilan keputusan",
   },
+  // KRITERIA 3
   {
     no: "3",
-    kriteria: "3.1 Daya tarik wisata",
-    subKriteria: "3.1.a Jumlah daya tarik wisata",
-    indikator: "-",
+    kriteria: "Ketersediaan Atraksi",
+    subKriteria: "3.1 Daya tarik wisata",
+    indikator: "3.1.a Jumlah daya tarik wisata",
     poin: 2,
     jawaban: "Terdapat 4-6 daya tarik wisata",
   },
   {
-    no: "",
+    no: "3",
     kriteria: "",
-    subKriteria: "3.1.b Sumber daya budaya/alam sebagai daya tarik",
-    indikator: "-",
+    subKriteria: "3.1 Daya tarik wisata",
+    indikator: "3.1.b Sumber daya budaya/alam sebagai daya tarik",
     poin: 3,
     jawaban: "Memiliki 3 Sumber daya budaya/alam sebagai daya tarik",
   },
   {
-    no: "",
-    kriteria: "3.2 Paket Wisata dan sovenir",
-    subKriteria: "3.2.a Jumlah paket wisata",
-    indikator: "-",
+    no: "3",
+    kriteria: "",
+    subKriteria: "3.2 Paket Wisata dan sovenir",
+    indikator: "3.2.a Jumlah paket wisata",
     poin: 4,
     jawaban: "Terdapat >= 4 paket wisata",
   },
   {
-    no: "",
+    no: "3",
     kriteria: "",
-    subKriteria: "3.2.b Produk kerajinan khas lokal sebagai souvenir",
-    indikator: "a. Produk > 4\nb. Material lokal\nc. Kemasan layak",
+    subKriteria: "3.2 Paket Wisata dan sovenir",
+    indikator: "3.2.b Produk kerajinan khas lokal sebagai souvenir",
     poin: 4,
-    jawaban: "d. Pengemasan kerajinan menarik & e. Penjualan meningkatkan pendapatan",
+    jawaban: "d. Pengemasan kerajinan menarik, e. Penjualan kerajinan dapat meningkatkan pendapatan masyarakat",
   },
   {
-    no: "",
-    kriteria: "3.3 Kesenian dan event desa wisata",
-    subKriteria: "3.3.a Kesenian tradisional",
-    indikator: "-",
+    no: "3",
+    kriteria: "",
+    subKriteria: "3.3 Kesenian dan event desa wisata",
+    indikator: "3.3.a Kesenian tradisional",
     poin: 3,
     jawaban: "Terdapat 3 macam kesenian tradisional",
   },
   {
-    no: "",
+    no: "3",
     kriteria: "",
-    subKriteria: "3.3.b Event desa wisata",
-    indikator: "-",
+    subKriteria: "3.3 Kesenian dan event desa wisata",
+    indikator: "3.3.b Event desa wisata",
     poin: 1,
     jawaban: "Terdapat even desa wisata rutin dalam skala kecamatan",
   },
+  // KRITERIA 4
   {
     no: "4",
-    kriteria: "4.1 Keberadaan dan keaslian makanan khas lokal",
-    subKriteria: "4.1.a Jumlah dan kualitas makanan khas lokal",
-    indikator: "-",
+    kriteria: "Amenitas makanan Minuman",
+    subKriteria: "4.1 Keberadaan dan keaslian makanan khas lokal",
+    indikator: "4.1.a Jumlah dan kualitas makanan khas lokal",
     poin: 2,
-    jawaban: "Terdapat makanan >2 khas lokal (termasuk hasil inovasi) dari bahan lokal",
+    jawaban: "Terdapat makanan >2 khas lokal (termasuk hasil inovasi) dari campuran bahan dasar lokal dan non lokal",
   },
   {
-    no: "",
-    kriteria: "4.2 Ketersediaan amenitas pendukung wisata",
-    subKriteria: "4.2.a Tingkat kelengkapan amenitas di area wisata",
-    indikator: "a. Tempat makan/minum\nb. Toko retail\nc. Penjualan cinderamata",
+    no: "4",
+    kriteria: "",
+    subKriteria: "4.2 Ketersediaan amenitas pendukung wisata",
+    indikator: "4.2.a Tingkat kelengkapan amenitas di area wisata",
     poin: 3,
-    jawaban: "c. Terdapat penjualan cinderamata di area wisata",
+    jawaban: "a. Terdapat tempat makan dan minum, b. Terdapat toko retail di area wisata, c. Terdapat penjualan cinderamata di area wisata",
+  },
+  // KRITERIA 5
+  {
+    no: "5",
+    kriteria: "Kualitas Fasilitas Umum dan Ancillary",
+    subKriteria: "5.1 Sanitasi dan infrastruktur lingkungan",
+    indikator: "5.1.a Ketersediaan air bersih, tempat sampah, sistem drainase, dan papan himbauan kebersihan",
+    poin: 3,
+    jawaban: "a. Tersedia air bersih, b. Tersedia tempat sampah, c. Tersedia sistem drainase untuk keperluan wisatawan",
   },
   {
     no: "5",
-    kriteria: "5.1 Sanitasi dan infrastruktur lingkungan",
-    subKriteria: "5.1.a Ketersediaan air bersih, sampah, drainase",
-    indikator: "a. Air bersih\nb. Tempat sampah\nc. Drainase",
+    kriteria: "",
+    subKriteria: "5.2 Fasilitas umum wisata",
+    indikator: "5.2.a Toilet umum",
     poin: 3,
-    jawaban: "c. Tersedia sistem drainase untuk keperluan wisatawan",
+    jawaban: "toilet umum tersedia dengan perbandingan 2:1 terhadap daya tarik wisata",
   },
   {
-    no: "",
-    kriteria: "5.2 Fasilitas umum wisata",
-    subKriteria: "5.2.a Toilet umum",
-    indikator: "-",
+    no: "5",
+    kriteria: "",
+    subKriteria: "5.3 Layanan informasi dan komunikasi",
+    indikator: "5.3.a Ketersediaan jaringan telekomunikasi, pusat informasi, brosur, narahubung, dan media online",
     poin: 3,
-    jawaban: "Toilet umum tersedia dengan perbandingan 2:1 terhadap daya tarik wisata",
+    jawaban: "a. Terdapat jaringan telekomunikasi atau sinyal telpon seluler, b. Terdapat kantor sekretariat atau pusat layanan informasi wisata, c. Tersedia brosur",
   },
   {
-    no: "",
-    kriteria: "5.3 Layanan informasi dan komunikasi",
-    subKriteria: "5.3.a Ketersediaan telekomunikasi & pusat informasi",
-    indikator: "a. Sinyal seluler\nb. Pusat informasi\nc. Brosur/Online",
-    poin: 3,
-    jawaban: "b. Terdapat kantor sekretariat/pusat informasi & c. Tersedia brosur",
-  },
-  {
-    no: "",
-    kriteria: "5.4 Fasilitas MICE",
-    subKriteria: "5.4.a Ketersediaan dan kapasitas tempat pertemuan",
-    indikator: "-",
+    no: "5",
+    kriteria: "",
+    subKriteria: "5.4 Fasilitas MICE",
+    indikator: "5.4.a Ketersediaan dan kapasitas tempat pertemuan",
     poin: 3,
     jawaban: "Terdapat tempat pertemuan kapasitas 30-50 orang",
   },
   {
-    no: "",
-    kriteria: "5.5 Homestay",
-    subKriteria: "5.5.a Ketersediaan dan integrasi homestay",
-    indikator: "-",
+    no: "5",
+    kriteria: "",
+    subKriteria: "5.5 Homestay",
+    indikator: "5.5.a Ketersediaan dan integrasi homestay dengan atraksi wisata",
     poin: 3,
-    jawaban: "Terdapat homestay yang menunjang, tapi tidak terintegrasi dengan atraksi",
+    jawaban: "Terdapat homestay yang menunjang desa wisata, tapi tidak terintegrasi dengan atraksi",
   },
   {
-    no: "",
-    kriteria: "5.6 Transportasi lokal",
-    subKriteria: "5.6.a Ketersediaan, kekhasan, aksesibilitas",
-    indikator: "-",
+    no: "5",
+    kriteria: "",
+    subKriteria: "5.6 Transportasi lokal",
+    indikator: "5.6.a Ketersediaan, kekhasan, dan aksesibilitas transportasi lokal",
     poin: 3,
     jawaban: "Terdapat transportasi lokal khas menuju dan/atau di dalam desa wisata",
   },
   {
-    no: "",
-    kriteria: "5.7 Aksesibilitas dan Penunjuk arah",
-    subKriteria: "5.7.a Jalan umum, penunjuk arah, peta",
-    indikator: "a. Jalan & GMaps memadai\nb. Peta lokasi atraksi",
+    no: "5",
+    kriteria: "",
+    subKriteria: "5.7 Aksesibilitas dan Penunjuk arah",
+    indikator: "5.7.a Ketersedian jalan umum, penunjuk arah, penanda dan peta desa wisata yang ramah disabilitas",
     poin: 3,
-    jawaban: "b. Terdapat peta lokasi atraksi desa wisata",
+    jawaban: "a. Terdapat jalan umum dan titik lokasi di Google Maps yang memadai, b. Terdapat peta lokasi atraksi desa wisata",
+  },
+  // KRITERIA 6
+  {
+    no: "6",
+    kriteria: "Kualitas SDM dan Pramuwisata",
+    subKriteria: "6.1 Kompetensi pramuwisata",
+    indikator: "6.1.a Latar belakang pendidikan, pelatihan, dan kemampuan bahasa asing",
+    poin: 3,
+    jawaban: "a. Terdapat SDM lulusan sekolah/pernah mengikuti pelatihan/sertifikasi pengelola pariwisata, b. Menguasai bahasa asing secara pasif",
   },
   {
     no: "6",
-    kriteria: "6.1 Kompetensi pramuwisata",
-    subKriteria: "6.1.a Latar belakang pendidikan & pelatihan",
-    indikator: "a. Lulusan/Sertifikasi\nb. Bahasa asing",
+    kriteria: "",
+    subKriteria: "6.2 Kemampuan digital pengelola",
+    indikator: "6.2.a Kemampuan menggunakan gawai dan media sosial untuk promosi desa wisata",
     poin: 3,
-    jawaban: "a. Terdapat SDM terlatih/sertifikasi & b. Menguasai bahasa asing pasif",
+    jawaban: "a. Pengelola aktif menggunakan gawai dan media sosial untuk promosi, informasi, serta komunikasi dengan wisatawan, b. meski strategi konten masih sederhana.",
   },
-  {
-    no: "",
-    kriteria: "6.2 Kemampuan digital pengelola",
-    subKriteria: "6.2.a Kemampuan gawai & medsos",
-    indikator: "-",
-    poin: 3,
-    jawaban: "a. Pengelola aktif promosi medsos, b. meski strategi konten sederhana",
-  },
+  // KRITERIA 7
   {
     no: "7",
-    kriteria: "7.1 FTO mempromosikan pengalaman memuaskan",
-    subKriteria: "7.1.a Standar pelayanan FTO",
-    indikator: "-",
+    kriteria: "Kinerja Friendly Tour Operator dan Sapta pesona",
+    subKriteria: "7.1. FTO mempromosikan pengalaman yang memuaskan dan aman bagi wisatawan dan masyarakat",
+    indikator: "7.1.a Standar pelayanan FTO untuk pengalaman memuaskan",
     poin: 2,
-    jawaban: "Terdapat standar pelayanan tertulis sistematis dan disosialisasikan berkala",
+    jawaban: "Terdapat standar pelayanan tertulis secara sistematis dan disosialisasikan kepada pengelola desa wisata secara berkala",
   },
+  // KRITERIA 8
   {
     no: "8",
-    kriteria: "8.1 Teknologi informasi & promosi",
-    subKriteria: "8.1.a Strategi promosi",
-    indikator: "-",
+    kriteria: "Penerapan Teknologi",
+    subKriteria: "8.1 Menerapkan teknologi sebagai media penyebaran informasi dan promosi",
+    indikator: "8.1.a strategi promosi",
     poin: 2,
     jawaban: "Promosi menggunakan media cetak dan online",
   },
   {
-    no: "",
-    kriteria: "8.2 Teknologi pengelolaan desa wisata",
-    subKriteria: "8.2.a Penggunaan teknologi (keuangan, tiket, QRIS)",
-    indikator: "-",
+    no: "8",
+    kriteria: "",
+    subKriteria: "8.2 Teknologi untuk pengelolaan desa wisata",
+    indikator: "8.2.a Penggunaan teknologi digital untuk keanggotaan, keuangan, tiket, QRIS, dan sistem terintegrasi",
     poin: 0,
     jawaban: "Tidak menggunakan teknologi dalam pengelolaan desa wisata",
   },
+  // KRITERIA 9
   {
     no: "9",
-    kriteria: "9.1 Kontribusi Kesejahteraan Sosial",
-    subKriteria: "9.1.a Jumlah kunjungan wisata per bulan",
-    indikator: "-",
+    kriteria: "Kontribusi terhadap Kesejahteraan Sosial",
+    subKriteria: "9.1 Pembagian biaya dan hasil usaha yang adil",
+    indikator: "9.1.a Jumlah kunjungan wisata per bulan",
     poin: 1,
     jawaban: "Terdapat kunjungan wisatawan < 100 per bulan",
   },
   {
-    no: "",
-    kriteria: "9.1 Pembagian biaya & hasil usaha",
-    subKriteria: "9.1.b Sistem pembagian hasil usaha",
-    indikator: "a. Proporsional\nb. Masuk kas Pokdarwis\nc. Laporan keuangan",
+    no: "9",
+    kriteria: "",
+    subKriteria: "9.1 Pembagian biaya dan hasil usaha yang adil",
+    indikator: "9.1.b Sistem pembagian hasil usaha dan transparansi laporan keuangan",
     poin: 3,
-    jawaban: "a. Dibagi proporsional, b. Masuk kas, c. Laporan ada meski kurang transparan",
+    jawaban: "a. Hasil usaha dibagikan kepada unit usaha secara proporsional, b. Sebagian hasil usaha masuk ke kas Pokdarwis/badan usaha/Koperasi, c. Tersedia laporan keuangan meski kurang transparan",
   },
   {
-    no: "",
-    kriteria: "9.2 Menjaga martabat manusia",
-    subKriteria: "9.2.a Himbauan menaati norma",
-    indikator: "-",
+    no: "9",
+    kriteria: "",
+    subKriteria: "9.2 Menjaga martabat manusia",
+    indikator: "9.2.a Himbauan menaati norma bagi pengelola dan pengunjung",
     poin: 3,
-    jawaban: "Terdapat himbuan lisan dan tertulis menaati norma bagi pengelola & pengunjung",
+    jawaban: "Terdapat himbuan lisan dan tertulis menaati norma dan peraturan bagi pengelola dan pengunjung",
   },
   {
-    no: "",
-    kriteria: "9.3 Kemitraan dan jaringan ekonomi",
-    subKriteria: "9.3.a Kemitraan dengan stakeholders",
-    indikator: "a. Pokdarwis\nb. Pemerintah\nc. Akademik",
+    no: "9",
+    kriteria: "",
+    subKriteria: "9.3 Kemitraan dan jaringan ekonomi",
+    indikator: "9.3.a Kemitraan dengan pemerintah, akademik, industri, media",
     poin: 2,
-    jawaban: "Memiliki kemitraan dengan Pokdarwis & Pemerintah, Akademik (konsep tertulis)",
+    jawaban: "Memiliki kemitraan dengan a. pokdarwis, b. pemerintah (desa/kab/kota/provinsi/nasional) dan c. akademik",
   },
+  // KRITERIA 10
   {
     no: "10",
-    kriteria: "10.1 Konservasi dan pelestarian",
-    subKriteria: "10.1.a Konsep dan implementasi pelestarian",
-    indikator: "-",
+    kriteria: "Kontribusi terhadap lingkungan",
+    subKriteria: "10.1 Konservasi dan pelestarian",
+    indikator: "10.1.a Konsep dan implementasi pelestarian lingkungan",
     poin: 3,
-    jawaban: "a. Konsep tertulis ada, b. melibatkan pengelola & masyarakat dalam implementasi",
+    jawaban: "a. Sudah ada konsep tertulis dan b. melibatkan pengelola dan masyarakat dalam implementasinya",
   },
 ];
 
-export default function ScoringTable() {
+// Total nilai: 94
+
+export default function ScoringTable({ scoreId }: { scoreId: number }) {
   return (
     <Card className="w-full shadow-lg border-t-4 border-t-green-600">
       <CardHeader>
@@ -318,7 +331,10 @@ export default function ScoringTable() {
               Acuan Data Desa Kebonsari - Detail Penilaian
             </p> */}
           </div>
-          <Badge variant="outline" className="text-lg px-4 py-1 rounded-xl border-green-600 text-green-600">
+          <Badge
+            variant="outline"
+            className="text-lg px-4 py-1 rounded-xl border-green-600 text-green-600"
+          >
             Total Poin: 94
           </Badge>
         </div>
@@ -327,18 +343,26 @@ export default function ScoringTable() {
         <Table>
           <TableHeader className="bg-gray-50">
             <TableRow>
-              <TableHead className="w-[50px] font-bold text-gray-700">No</TableHead>
-              <TableHead className="w-[200px] font-bold text-gray-700">Kriteria</TableHead>
-              <TableHead className="w-[250px] font-bold text-gray-700">Sub Kriteria</TableHead>
-              <TableHead className="w-[250px] font-bold text-gray-700">Indikator</TableHead>
-              <TableHead className="w-[80px] text-center font-bold text-gray-700">Poin</TableHead>
-              <TableHead className="font-bold text-gray-700">Jawaban / Kondisi Riil</TableHead>
+              <TableHead className="w-[200px] font-bold text-gray-700">
+                Kriteria
+              </TableHead>
+              <TableHead className="w-[250px] font-bold text-gray-700">
+                Sub Kriteria
+              </TableHead>
+              <TableHead className="w-[250px] font-bold text-gray-700">
+                Indikator
+              </TableHead>
+              <TableHead className="w-[80px] text-center font-bold text-gray-700">
+                Poin
+              </TableHead>
+              <TableHead className="font-bold text-gray-700">
+                Jawaban / Kondisi Riil
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {penilaianData.map((item, index) => (
+            {penilaianData.filter((item) => Number(item.no) == scoreId).map((item, index) => (
               <TableRow key={index} className="hover:bg-green-50/30 transition-colors even:bg-slate-50/50">
-                <TableCell className="font-medium align-top">{item.no}</TableCell>
                 <TableCell className="align-top font-semibold text-gray-800">
                   {item.kriteria}
                 </TableCell>
@@ -346,7 +370,9 @@ export default function ScoringTable() {
                   {item.subKriteria}
                 </TableCell>
                 <TableCell className="align-top whitespace-pre-line text-sm text-gray-600">
-                  {item.indikator !== "-" ? item.indikator : ""}
+                  {item.indikator !== "-"
+                    ? item.indikator
+                    : ""}
                 </TableCell>
                 <TableCell className="align-top text-center font-bold text-green-600 text-lg">
                   {item.poin}
