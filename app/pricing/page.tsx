@@ -1,966 +1,218 @@
 "use client";
-import { BorderTrail } from "@/components/motion-primitives/border-trail";
-import { Button } from "@/components/ui/button";
+
+import React from "react";
+import {
+  Trophy,
+  Info,
+  Calendar,
+  Tent,
+  BedDouble,
+  Utensils,
+  Users,
+  MapPin,
+  TrendingUp,
+  DollarSign
+} from "lucide-react";
+
+// Import Recharts untuk Grafik
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
 import {
   Card,
+  CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Switch } from "@/components/ui/switch";
-import {
-  Check,
-  Flower,
-  Heading1,
-  LucideFlower,
-  LucideHeartHandshake,
-  LucideImage,
-  LucideInfinity,
-  LucideSettings2,
-  Minus,
-  Section,
-} from "lucide-react";
-import React from "react";
-import { useEffect, useRef, useState } from "react";
-import { ModeToggle } from "@/components/mode-toggle";
 import { Badge } from "@/components/ui/badge";
 
-export default function Page() {
-  const [enabled, setEnabled] = React.useState(true);
-  const ref = useRef<HTMLDivElement>(null);
-  const [isSticky, setIsSticky] = useState(false);
+// --- DUMMY DATA ---
+// Data Profit 6 Bulan Terakhir
+const profitData = [
+  { month: "Jan", profit: 12000000 },
+  { month: "Feb", profit: 15500000 },
+  { month: "Mar", profit: 11000000 },
+  { month: "Apr", profit: 18000000 },
+  { month: "Mei", profit: 24000000 },
+  { month: "Jun", profit: 21500000 },
+];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // kalau elemen keluar dari viewport (karena sticky nempel), ubah state
-        setIsSticky(!entry.isIntersecting);
-      },
-      { threshold: [1] }
-    );
+// Data Profil Desa (Sesuai Request)
+const profilStats = [
+  { label: "Tahun Berdiri", value: "2021", icon: Calendar, color: "text-blue-600", bg: "bg-blue-100" },
+  { label: "Objek Wisata", value: "6 Spot", icon: Tent, color: "text-emerald-600", bg: "bg-emerald-100" },
+  { label: "Guesthouse", value: "10 Unit", icon: BedDouble, color: "text-purple-600", bg: "bg-purple-100" },
+  { label: "Restoran & Cafe", value: "5 Outlet", icon: Utensils, color: "text-orange-600", bg: "bg-orange-100" },
+  { label: "Rata-rata Pengunjung", value: "96 / Bulan", icon: Users, color: "text-pink-600", bg: "bg-pink-100" },
+];
 
-    if (ref.current) observer.observe(ref.current);
+// Formatter Rupiah untuk Chart
+const formatRupiah = (value: number) => {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
+};
 
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
-
+export default function Pricing({ selectedDesa }: { selectedDesa: any }) {
   return (
-    <main className="container max-w-6xl mx-auto px-4 relative">
-
-      {/* hero */}
-      <section className="py-5 mb-7 flex flex-col items-center justify-center px-4">
-        <h1 className="mb-4 font-medium text-center text-4xl tracking-[-0.14rem] md:text-4xl">
-          Your teams new all-in-one creative solution
-        </h1>
-        <p
-          className="max-w-2xl text-center text-muted-foreground tracking-[-0.01rem] sm:text-lg"
-          ref={ref}
-        >
-          Simple plans that scale with your team
-        </p>
-      </section>
-
-      {/* main card */}
-      <section className={`grid sm:grid-cols-2 lg:grid-cols-3 mb-5 relative md:sticky md:top-4 z-10 gap-7`}>
-        {/* Pro Plan */}
-        <Card
-          className={`relative flex flex-col border-blue-500/15 bg-gradient-to-tr from-blue-500/10 to-background backdrop-blur-md shadow-md transition-transform duration-500 ease-out scale-105 ${
-            isSticky ? "h-max scale-100" : " h-auto"
-          }`}
-        >
-          <BorderTrail className={`bg-blue-600`} size={200} />
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-2xl">Pro</CardTitle>
-              <div className="flex items-center gap-2 text-sm">
-                <span>{enabled ? "Yearly" : "Monthly"}</span>
-                <Switch
-                  checked={enabled}
-                  onCheckedChange={setEnabled}
-                  className="data-[state=checked]:bg-blue-500"
-                />
-              </div>
-            </div>
-            <CardDescription className="my-3">
-              For full Editor access
-            </CardDescription>
-            <p className="text-4xl">
-              <span className="text-4xl font-medium tracking-[-0.1rem] me-2">
-                {enabled ? "$16" : "$20"}
-              </span>
-              <span className="text-base font-normal mb-3">
-                per seat / month
-              </span>
-            </p>
-          </CardHeader>
-          <CardContent
-            className={`flex-1 space-y-4 ${isSticky ? "hidden" : "block"}`}
-          >
-            <div className="border-2 border-blue-500/10 mt-5 mb-10 px-4 py-3 rounded-lg flex items-center justify-between">
-              <div className="flex gap-2 items-center">
-                <LucideFlower size={20} />
-                <span className="font-semibold">20,000</span>
-              </div>
-              <span className="text-sm">per seat / month</span>
-            </div>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-blue-400" /> Access to all 40+ AI
-                models
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-blue-400" /> Team workspace &
-                collaboration
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-blue-400" /> Custom Styles
-              </li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full text-white bg-blue-600 hover:bg-blue-700">
-              Get Pro
-            </Button>
-          </CardFooter>
-        </Card>
-
-        {/* Agency Plan */}
-        <Card
-          className={`relative flex flex-col border-green-500/15 bg-gradient-to-tr from-green-500/10 to-background backdrop-blur-md shadow-md transition-transform duration-500 ease-out scale-105 ${
-            isSticky ? "h-max scale-100" : " h-auto"
-          }`}
-        >
-          <BorderTrail className={`bg-green-600`} size={200} />
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-2xl">Agency</CardTitle>
-              <div className="flex items-center gap-2 text-sm">
-                <span>{enabled ? "Yearly" : "Monthly"}</span>
-                <Switch
-                  checked={enabled}
-                  onCheckedChange={setEnabled}
-                  className="data-[state=checked]:bg-green-500"
-                />
-              </div>
-            </div>
-            <CardDescription className="my-3">
-              For high-output creatives
-            </CardDescription>
-            <p className="text-4xl">
-              <span className="text-4xl font-medium tracking-[-0.1rem] me-2">
-                {enabled ? "$96" : "$120"}
-              </span>
-              <span className="text-base font-normal mb-3">
-                per seat / month
-              </span>
-            </p>
-          </CardHeader>
-          <CardContent
-            className={`flex-1 space-y-4 ${isSticky ? "hidden" : "blcok"}`}
-          >
-            <div className="border-2 border-green-500/10 mt-5 mb-10 px-4 py-3 rounded-lg flex items-center justify-between">
-              <div className="flex gap-2 items-center">
-                <LucideFlower size={20} />
-                <span className="font-semibold">80,000</span>
-              </div>
-              <span className="text-sm">per seat / month</span>
-            </div>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2">
-                Everything in Pro, plus:
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-green-400" />
-                Buy more credits
-              </li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full text-white bg-green-600 hover:bg-green-700">
-              Get Agency
-            </Button>
-          </CardFooter>
-        </Card>
-
-        {/* Enterprise Plan */}
-        <Card
-          className={`relative flex flex-col justify-between border-gray-500/15 bg-gradient-to-tr from-gray-500/10 to-background backdrop-blur-md shadow-md transition-transform duration-500 ease-out scale-105 ${
-            isSticky ? "h-max scale-100" : " h-auto"
-          }`}
-        >
-          <BorderTrail className={`bg-gray-500`} size={200} />
-          <CardHeader>
-            <CardTitle className="text-2xl">Enterprise</CardTitle>
-            <CardDescription>
-              Master creative AI tools with custom pricing, onboarding, and
-              support
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="">
-            <ul
-              className={`space-y-2 text-sm mt-4 ${
-                isSticky ? "hidden" : " blcok"
-              }`}
-            >
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-gray-400" /> Advanced team
-                management
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-gray-400" /> Custom credit limits
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-gray-400" /> Custom AI workflows
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-gray-400" /> White-glove support
-              </li>
-            </ul>
-            <Button
-              variant="outline"
-              className="w-full bg-gray-800 hover:bg-gray-700 border-none text-white mt-5"
-            >
-              Get in touch
-            </Button>
-          </CardContent>
-        </Card>
-      </section>
-
-      {/* credit and generation estimates table */}
-      <section>
-        <div className="flex gap-2 items-center mt-20 mb-3">
-          <LucideFlower size={20} />
-          <p className="font-medium">Credits and Generation Estimates</p>
-        </div>
-
-        <Table>
-          <TableBody>
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="font-medium">20,000 credits</span>
-                    <span className="text-muted-foreground ml-2">per seat / month</span>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="font-medium">80,000</span>
-                    <span className="text-muted-foregroundtext-muted-foreground ml-1">to</span>
-                    <span className="font-medium ml-1">240,000</span>
-                    <span className="text-muted-foreground ml-2">credits per seat / month</span>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Custom credit limits</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="w-4 h-4 text-muted-foreground mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">Buy more credits</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Buy more credits</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Buy more credits</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Credit rollover</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Credit rollover</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Credit rollover</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">~10,000 text generations</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">~40,000</span>
-                    <span className="text-muted-foreground ml-1">to</span>
-                    <span className=" ml-1">120,000</span>
-                    <span className=" ml-1">text generations</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">Custom number of text generations</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">~1,000 images</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">~4,000</span>
-                    <span className="text-muted-foreground ml-1">to</span>
-                    <span className=" ml-1">12,000</span>
-                    <span className=" ml-1">images</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">Custom number of images</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">~100 videos</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">~400</span>
-                    <span className=" ml-1">to</span>
-                    <span className=" ml-1">1,200</span>
-                    <span className=" ml-1">videos</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <span className="">Custom number of videos</span>
-                    <div className="text-muted-foreground">per month</div>
-                  </div>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </section>
-
-      {/* Team Collaboration table */}
-      <section>
-        <div className="flex gap-2 items-center mt-10 mb-3">
-          <LucideHeartHandshake size={20} />
-          <p className="font-medium">Team & collaboration</p>
-        </div>
-        <Table>
-          <TableBody>
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-center gap-3">
-                  <LucideInfinity size={18} />
-                  <div className="flex-1">
-                    <span className="font-medium">Unlimited</span>
-                    <span className="ml-1 text-muted-foreground">seats</span>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <LucideInfinity size={18} />
-                  <div className="flex-1">
-                    <span className="font-medium">Unlimited</span>
-                    <span className="ml-1 text-muted-foreground">seats</span>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <LucideInfinity size={18} />
-                  <div className="flex-1">
-                    <span className="font-medium">Unlimited</span>
-                    <span className="ml-1 text-muted-foreground">seats</span>
-                  </div>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">User Management</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">User Management</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">User Management</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Unified billing</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Unified billing</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Unified billing</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Custom Styles</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Custom Styles</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Custom Styles</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Upload/download custom LoRAs</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Upload/download custom LoRAs</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Upload/download custom LoRAs</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Custom AI workflows
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Custom AI workflows
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Custom AI workflows</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Dedicated account manager
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Dedicated account manager
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Dedicated account manager</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Priority support
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Priority support
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Priority support</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">SSO / SAML</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">SSO / SAML</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">SSO / SAML</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Private Slack channel
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Minus className="text-muted-foreground w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    Private Slack channel
-                  </span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Private Slack channel</span>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </section>
-
-      {/* Editor & Platform table */}
-      <section>
-        <div className="flex gap-2 items-center mt-10 mb-3">
-          <LucideSettings2 size={20} />
-          <p className="font-medium">Editor & Platform</p>
-        </div>
-        <Table>
-          <TableBody>
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Security features</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Security features</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Security features</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Collaboration tools</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Collaboration tools</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Collaboration tools</span>
-                </div>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </section>
-
-      {/* Image models table */}
-      <section>
-        <div className="flex gap-2 items-center mt-10 mb-3">
-          <LucideImage size={20} />
-          <p className="font-medium">Image Models</p>
-        </div>
-        <Table>
-          <TableBody>
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="">Model</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="">Generation Time Estimate</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="">Cost</span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Flux Dev</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~10s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge
-                  variant={"secondary"}
-                  className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background"
-                >
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">42</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Flux Pro 1.1</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~24s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge
-                  variant={"secondary"}
-                  className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background"
-                >
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">75</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Google Imagen 4</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~18s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge
-                  variant={"secondary"}
-                  className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background"
-                >
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">65</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">OpenAI GPT Image</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~1m</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge
-                  variant={"secondary"}
-                  className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background"
-                >
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">50</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Ideogram 3.0</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~18s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge variant={"secondary"} className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background">
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">75</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Luma Photon</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~20s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge variant={"secondary"} className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background">
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">24</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Recraft v3</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~14s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge variant={"secondary"} className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background">
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">50</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Stable Diffusion 3.5</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~32s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge variant={"secondary"} className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background">
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">44</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Google Gemini 2.0 Flash</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~2s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge variant={"secondary"} className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background">
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">10</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-
-            <TableRow className="">
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span className="">Runway References</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <div className="flex items-start gap-3">
-                  <span className="text-muted-foreground">~30s</span>
-                </div>
-              </TableCell>
-              <TableCell className="align-top w-1/3 py-4">
-                <Badge variant={"secondary"} className="p-2 rounded-xl gap-1 border border-transparent-secondary bg-background">
-                  <LucideFlower className="w-4 h-4 flex-shrink-0" />
-                  <span className="">100</span>
-                </Badge>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </section>
+    <div className="space-y-6">
       
-    </main>
+      {/* 1. HERO CARD (EXISTING) */}
+      <Card className="overflow-hidden border-none shadow-xl ring-1 ring-slate-900/5 pt-0">
+        <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-6 sm:p-8 text-white">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="secondary" className="bg-white/20 text-white hover:bg-white/30 border-none backdrop-blur-sm">
+                  Desa Wisata
+                </Badge>
+              </div>
+              <h1 className="text-3xl font-bold tracking-tight">{selectedDesa.nama}</h1>
+            </div>
+
+            {/* Score Circle */}
+            <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/20">
+              <div className="text-right">
+                <p className="text-xs font-medium text-blue-100 uppercase tracking-wider">Total Poin</p>
+                <p className="text-3xl font-extrabold">{selectedDesa.poin}</p>
+              </div>
+              <div className="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-400 text-yellow-900 shadow-lg">
+                <Trophy className="h-6 w-6" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <CardContent className="bg-white p-6 flex flex-col sm:flex-row items-center gap-4 text-sm">
+          <div className="flex-1 flex items-center gap-3 p-3 rounded-lg bg-blue-50 border border-blue-100 text-blue-900 w-full">
+            <Info className="h-5 w-5 text-blue-600 shrink-0" />
+            <p>
+              Status saat ini adalah <span className="font-bold">{selectedDesa.klasifikasi}</span>.
+              Tingkatkan aspek penilaian untuk naik ke klasifikasi berikutnya.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 2. STATISTIK GRID (NEW) */}
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+        {profilStats.map((stat, idx) => (
+          <Card key={idx} className="border-none shadow-md ring-1 ring-slate-900/5 hover:bg-slate-50 transition-colors">
+            <CardContent className="p-4 flex flex-col items-center text-center justify-center h-full gap-2">
+              <div className={`p-3 rounded-full ${stat.bg} ${stat.color} mb-1`}>
+                <stat.icon className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 font-medium uppercase tracking-wide">{stat.label}</p>
+                <p className="text-lg font-bold text-slate-800">{stat.value}</p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* 3. CHART & MAP SECTION (NEW) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Grafik Profit (2/3 width on desktop) */}
+        <Card className="lg:col-span-2 border-none shadow-lg ring-1 ring-slate-900/5">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-emerald-600" />
+                  Grafik Profit Desa
+                </CardTitle>
+                <p className="text-sm text-slate-500">Performa pendapatan 6 bulan terakhir</p>
+              </div>
+              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 gap-1">
+                <DollarSign className="h-3 w-3" /> Profit Positif
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="pl-0">
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={profitData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                  <XAxis 
+                    dataKey="month" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#64748b', fontSize: 12 }} 
+                    dy={10}
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#64748b', fontSize: 12 }}
+                    tickFormatter={(value) => `${value / 1000000}jt`} 
+                  />
+                  <Tooltip 
+                    formatter={(value: number) => [formatRupiah(value), "Profit"]}
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="profit" 
+                    stroke="#10b981" 
+                    strokeWidth={3}
+                    fillOpacity={1} 
+                    fill="url(#colorProfit)" 
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Peta Lokasi (1/3 width on desktop) */}
+        <Card className="border-none shadow-lg ring-1 ring-slate-900/5 flex flex-col">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <MapPin className="h-5 w-5 text-red-500" />
+              Lokasi Desa
+            </CardTitle>
+            <p className="text-sm text-slate-500">Titik lokasi administratif</p>
+          </CardHeader>
+          <CardContent className="p-0 flex-1 min-h-[250px] relative">
+            {/* Embed Google Maps Dummy (Magelang Area) */}
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.088237955518!2d110.2246473759451!3d-7.565342974720978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a884400552733%3A0xc3f7a63319084807!2sKebonsari%2C%20Borobudur%2C%20Magelang%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1709228394021!5m2!1sen!2sid"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: "300px" }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full h-full lg:rounded-b-xl"
+            />
+            
+            {/* Overlay Info (Optional) */}
+            <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-sm border border-slate-200 text-xs">
+              <p className="font-semibold text-slate-800">Desa Wisata Kebonsari</p>
+              <p className="text-slate-500">Kec. Borobudur, Magelang, Jawa Tengah</p>
+            </div>
+          </CardContent>
+        </Card>
+
+      </div>
+    </div>
   );
 }
