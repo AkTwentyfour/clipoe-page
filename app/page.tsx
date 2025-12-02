@@ -220,64 +220,64 @@ const App = () => {
   // Data detail nilai per kriteria (dummy)
   const nilaiKriteria: Record<number, KriteriaDetail> = {
     1: {
-      nilai: 8,
-      maksimal: 10,
-      persentase: 80,
+      nilai: 14,
+      maksimal: 28,
+      persentase: 50,
       deskripsi:
         "Memiliki struktur organisasi yang jelas dengan kepengurusan aktif",
     },
     2: {
-      nilai: 7,
-      maksimal: 10,
-      persentase: 70,
+      nilai: 15,
+      maksimal: 16,
+      persentase: 93,
       deskripsi: "Memiliki rencana pengembangan wilayah dan rencana aksi",
     },
     3: {
-      nilai: 7.5,
-      maksimal: 10,
-      persentase: 75,
+      nilai: 17,
+      maksimal: 24,
+      persentase: 70,
       deskripsi: "Kelembagaan terstruktur dengan pembagian tugas yang baik",
     },
     4: {
-      nilai: 8,
-      maksimal: 10,
-      persentase: 80,
+      nilai: 5,
+      maksimal: 8,
+      persentase: 62,
       deskripsi: "SDM terlatih dengan sertifikasi di bidang pariwisata",
     },
     5: {
-      nilai: 7,
-      maksimal: 10,
-      persentase: 70,
+      nilai: 21,
+      maksimal: 28,
+      persentase: 75,
       deskripsi: "Pengelolaan keuangan transparan dengan laporan berkala",
     },
     6: {
-      nilai: 9,
-      maksimal: 10,
-      persentase: 90,
+      nilai: 6,
+      maksimal: 8,
+      persentase: 75,
       deskripsi: "Memiliki produk wisata unik dan beragam atraksi",
     },
     7: {
-      nilai: 6,
-      maksimal: 10,
-      persentase: 60,
+      nilai: 2,
+      maksimal:4,
+      persentase: 50,
       deskripsi: "Strategi pemasaran digital dan offline yang cukup efektif",
     },
     8: {
-      nilai: 8.5,
-      maksimal: 10,
-      persentase: 85,
+      nilai: 2,
+      maksimal: 8,
+      persentase: 25,
       deskripsi: "Pelayanan ramah dengan standar operasional yang baik",
     },
     9: {
-      nilai: 7.5,
-      maksimal: 10,
-      persentase: 75,
+      nilai: 9,
+      maksimal: 16,
+      persentase: 56,
       deskripsi: "Memberikan dampak ekonomi positif bagi masyarakat lokal",
     },
     10: {
-      nilai: 7,
-      maksimal: 10,
-      persentase: 70,
+      nilai: 3,
+      maksimal: 4,
+      persentase: 75,
       deskripsi: "Menjaga kelestarian budaya dan lingkungan dengan baik",
     },
   };
@@ -344,7 +344,7 @@ const App = () => {
     {
       id: 1,
       nama: "Desa Wisata Kebonsari",
-      klasifikasi: "Mandiri",
+      klasifikasi: "Berkembang",
       poin: 94,
       image:
         "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
@@ -354,7 +354,7 @@ const App = () => {
     {
       id: 2,
       nama: "Desa Wisata Kaliurang",
-      klasifikasi: "Maju",
+      klasifikasi: "Berkembang",
       poin: 85,
       image:
         "https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800&q=80",
@@ -365,7 +365,7 @@ const App = () => {
       id: 3,
       nama: "Desa Wisata Pentingsari",
       klasifikasi: "Maju",
-      poin: 88,
+      poin: 102,
       image:
         "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&q=80",
       deskripsi: "Pengalaman homestay tradisional yang autentik",
@@ -374,8 +374,8 @@ const App = () => {
     {
       id: 4,
       nama: "Wisata Nglanggeran",
-      klasifikasi: "Berkembang",
-      poin: 78,
+      klasifikasi: "Maju",
+      poin: 102,
       image:
         "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?w=800&q=80",
       deskripsi: "Wisata gunung dengan pemandangan spektakuler",
