@@ -10,11 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-// import { ChevronLeft, MapPin } from "lucide-react";
+
 import { useEffect, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import {
+  Lightbulb,
+  Home,
+  Ticket,
+  Sparkles,
   MapPin,
   ChevronLeft,
   Users,
@@ -78,6 +82,28 @@ interface Kriteria {
   deskripsi: string;
 }
 
+interface Attraction {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  imageUrl: string;
+  location: string;
+  rating: number;
+  price: string;
+}
+
+interface GuestHouse {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  imageUrl: string;
+  location: string;
+  rating: number;
+  price: string;
+}
+
 type KriteriaDetail = {
   nilai: number;
   maksimal: number;
@@ -107,6 +133,72 @@ const profitData = [
   { month: "Apr", profit: 18000000 },
   { month: "Mei", profit: 24000000 },
   { month: "Jun", profit: 21500000 },
+];
+
+const attractionsData: Attraction[] = [
+  {
+    id: 1,
+    name: "Nepal Van Java",
+    category: "Alam & Pegunungan",
+    description:
+      "Pemandangan perumahan penduduk yang bertumpuk di lereng Gunung Sumbing, persis seperti pedesaan di Nepal. Udaranya sangat sejuk dengan spot foto yang melimpah.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&q=80",
+    location: "Dusun Need, Kaliangkrik",
+    rating: 4.8,
+    price: "Rp 10.000",
+  },
+  {
+    id: 2,
+    name: "Candi Umbul",
+    category: "Sejarah & Pemandian",
+    description:
+      "Situs purbakala berupa pemandian air panas alami yang peninggalan zaman Wangsa Syailendra. Cocok untuk relaksasi sekaligus belajar sejarah.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80",
+    location: "Kecamatan Grabag",
+    rating: 4.5,
+    price: "Rp 15.000",
+  },
+  {
+    id: 3,
+    name: "Silancur Highland",
+    category: "Taman & Gardu Pandang",
+    description:
+      "Taman bunga yang indah di lereng gunung dengan latar belakang Gunung Sumbing. Sangat populer untuk menikmati momen matahari terbit (sunrise).",
+    imageUrl:
+      "https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800&q=80",
+    location: "Dadapan, Mangli",
+    rating: 4.7,
+    price: "Rp 20.000",
+  },
+];
+
+const guestHouseData: GuestHouse[] = [
+  {
+    id: 1,
+    name: "Omah Budur Homestay",
+    category: "Homestay Tradisional",
+    description:
+      "Penginapan berkonsep rumah joglo khas Jawa dengan fasilitas modern. Suasana asri pedesaan yang tenang, cocok untuk istirahat keluarga.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=800&q=80",
+    location: "Kawasan Candi Borobudur",
+    rating: 4.9,
+    price: "Rp 350.000",
+  },
+  {
+    id: 2,
+    name: "Menoreh View Villa",
+    category: "Villa Keluarga",
+    description:
+      "Penginapan eksklusif dengan pemandangan langsung ke Perbukitan Menoreh. Dilengkapi balkon luas untuk menikmati udara pagi yang sejuk.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
+    location: "Salaman, Magelang",
+    rating: 4.7,
+    price: "Rp 750.000",
+  },
 ];
 
 // Data Profil Desa (Sesuai Request)
@@ -174,8 +266,8 @@ const App = () => {
         return "bg-blue-500 hover:bg-blue-600";
       case "Rintisan":
         return "bg-amber-500 hover:bg-amber-600";
-      default :
-        return "bg-red-500 hover:bg-red-600"
+      default:
+        return "bg-red-500 hover:bg-red-600";
     }
   };
 
@@ -1906,6 +1998,29 @@ const App = () => {
                   </CardContent>
                 </Card>
 
+                <Card className="w-full bg-white border-none shadow-sm ring-1 ring-slate-900/5 rounded-xl overflow-hidden mt-4 mb-6 relative">
+                  {/* Aksen warna di sisi kiri card */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-amber-400"></div>
+
+                  <CardContent className="p-5 pl-7 flex gap-4 items-start">
+                    {/* Icon Container */}
+                    <div className="mt-0.5 shrink-0 bg-amber-50 p-1.5 rounded-md">
+                      <Lightbulb className="h-5 w-5 text-amber-500" />
+                    </div>
+
+                    {/* Text Container */}
+                    <div className="flex flex-col gap-1.5">
+                      <h3 className="font-semibold text-slate-800 text-base">
+                        Saran Perbaikan
+                      </h3>
+
+                      <p className="text-sm text-slate-600 leading-relaxed">
+                        Peningkatan fasilitas pada beberapa wisata dan juga Guesthouse disarankan. Penambahan restoran dan cafe juga diutamakan, untuk menambah daya tarik pengunjung
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+
                 {currentView == "detail"}
 
                 {/* 2. STATISTIK GRID (NEW) */}
@@ -2065,6 +2180,165 @@ const App = () => {
                 </div>
               </div>
             </motion.div>
+
+            {/* wisata terdekat */}
+            <Card className="border-none !bg-transparent flex flex-col w-full mt-6 shadow-none">
+              {/* Header Container Utama */}
+              <CardHeader className="p-0">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-amber-500" />
+                  Wisata Terdekat
+                </CardTitle>
+                <p className="text-sm text-slate-500">
+                  Beberapa pilihan objek wisata unggulan yang bisa dikunjungi
+                </p>
+              </CardHeader>
+
+              {/* Content Container Utama */}
+              <CardContent className="p-0">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {attractionsData.map((attraction) => (
+                    // Inner Card untuk masing-masing objek wisata
+                    <div
+                      key={attraction.id}
+                      className="group flex flex-col bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 ring-1 ring-slate-900/5"
+                    >
+                      {/* Gambar Objek Wisata */}
+                      <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                        <img
+                          src={attraction.imageUrl}
+                          alt={attraction.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-xs font-medium text-slate-700 shadow-sm border border-slate-200">
+                          {attraction.category}
+                        </div>
+                      </div>
+
+                      {/* Detail Objek Wisata */}
+                      <div className="p-4 flex flex-col flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-base font-bold text-slate-800 line-clamp-1">
+                            {attraction.name}
+                          </h3>
+                          <div className="flex items-center gap-1 bg-amber-50 px-1.5 py-0.5 rounded text-amber-600 border border-amber-100">
+                            <Star className="w-3.5 h-3.5 fill-current" />
+                            <span className="text-xs font-bold">
+                              {attraction.rating}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 text-slate-500 mb-3">
+                          <MapPin className="w-4 h-4 text-slate-400" />
+                          <span className="text-xs">{attraction.location}</span>
+                        </div>
+
+                        <p className="text-sm text-slate-600 mb-4 line-clamp-3 flex-1">
+                          {attraction.description}
+                        </p>
+
+                        {/* Footer Inner Card */}
+                        <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 text-slate-700">
+                            <Ticket className="w-4 h-4 text-emerald-500" />
+                            <span className="text-sm font-semibold">
+                              {attraction.price}
+                            </span>
+                          </div>
+                          <button className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
+                            Lihat detail
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* homestay */}
+            <Card className="border-none !bg-transparent flex flex-col w-full pt-0 mb-8 shadow-none">
+              {/* Header Container Utama */}
+              <CardHeader className="p-0 mb-4">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Home className="h-5 w-5 text-blue-500" />
+                  Penginapan & Guest House
+                </CardTitle>
+                <p className="text-sm text-slate-500">
+                  Rekomendasi tempat istirahat terbaik di sekitar lokasi desa
+                  wisata
+                </p>
+              </CardHeader>
+
+              {/* Content Container Utama */}
+              <CardContent className="p-0">
+                {/* Menggunakan grid-cols-2 karena hanya ada 2 data */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {guestHouseData.map((guest) => (
+                    // Inner Card untuk masing-masing penginapan
+                    <div
+                      key={guest.id}
+                      className="group flex flex-col bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 ring-1 ring-slate-900/5"
+                    >
+                      {/* Gambar Penginapan */}
+                      <div className="relative h-56 w-full overflow-hidden bg-slate-100">
+                        <img
+                          src={guest.imageUrl}
+                          alt={guest.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-md text-xs font-medium text-slate-700 shadow-sm border border-slate-200">
+                          {guest.category}
+                        </div>
+                      </div>
+
+                      {/* Detail Penginapan */}
+                      <div className="p-5 flex flex-col flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="text-base font-bold text-slate-800 line-clamp-1">
+                            {guest.name}
+                          </h3>
+                          <div className="flex items-center gap-1 bg-amber-50 px-1.5 py-0.5 rounded text-amber-600 border border-amber-100">
+                            <Star className="w-3.5 h-3.5 fill-current" />
+                            <span className="text-xs font-bold">
+                              {guest.rating}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 text-slate-500 mb-3">
+                          <MapPin className="w-4 h-4 text-slate-400" />
+                          <span className="text-xs">{guest.location}</span>
+                        </div>
+
+                        <p className="text-sm text-slate-600 mb-4 line-clamp-3 flex-1">
+                          {guest.description}
+                        </p>
+
+                        {/* Footer Inner Card */}
+                        <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 text-slate-700">
+                            <BedDouble className="w-4 h-4 text-blue-500" />
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-sm font-semibold">
+                                {guest.price}
+                              </span>
+                              <span className="text-xs text-slate-400 font-normal">
+                                /malam
+                              </span>
+                            </div>
+                          </div>
+                          <button className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">
+                            Pesan sekarang
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
             {/* 3. Content Area: Switch between Grid and Detail */}
             {/* <AnimatePresence mode="wait">
