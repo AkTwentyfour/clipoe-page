@@ -57,7 +57,7 @@ import { AnimatedNumber } from "@/components/motion-primitives/animated-number";
 import { motion, AnimatePresence } from "framer-motion";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 
-import ScoringTable from "@/components/scoring-table"
+import ScoringTable from "@/components/scoring-table";
 
 interface Desa {
   id: number;
@@ -162,18 +162,20 @@ const App = () => {
   const [currentView, setCurrentView] = useState("home");
   const [selectedDesa, setSelectedDesa] = useState<Desa | null>();
   const [selectedKriteria, setSelectedKriteria] = useState<Kriteria | null>(
-    null
+    null,
   );
 
   // Helper untuk warna badge berdasarkan klasifikasi
   const getBadgeColor = (klasifikasi: string) => {
     switch (klasifikasi) {
-      case "Mandiri":
-        return "bg-emerald-500 hover:bg-emerald-600";
       case "Maju":
+        return "bg-emerald-500 hover:bg-emerald-600";
+      case "Berkembang":
         return "bg-blue-500 hover:bg-blue-600";
-      default:
+      case "Rintisan":
         return "bg-amber-500 hover:bg-amber-600";
+      default :
+        return "bg-red-500 hover:bg-red-600"
     }
   };
 
@@ -258,7 +260,7 @@ const App = () => {
     },
     7: {
       nilai: 2,
-      maksimal:4,
+      maksimal: 4,
       persentase: 50,
       deskripsi: "Strategi pemasaran digital dan offline yang cukup efektif",
     },
@@ -305,101 +307,721 @@ const App = () => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // const destinations = [
-  //   {
-  //     title: "Sawah Terasering",
-  //     description: "Nikmati pemandangan sawah bertingkat yang hijau dan asri",
-  //     image:
-  //       "https://www.agoda.com/wp-content/uploads/2024/07/Jatiluwih-rice-terrace-Bali-Featured.jpg",
-  //     rating: 4.8,
-  //     visitors: "500+ pengunjung/bulan",
-  //   },
-  //   {
-  //     title: "Homestay Tradisional",
-  //     description: "Menginap di rumah tradisional dengan suasana pedesaan",
-  //     image:
-  //       "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
-  //     rating: 4.9,
-  //     visitors: "300+ pengunjung/bulan",
-  //   },
-  //   {
-  //     title: "Wisata Kuliner",
-  //     description: "Rasakan kelezatan masakan tradisional khas desa",
-  //     image:
-  //       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
-  //     rating: 4.7,
-  //     visitors: "800+ pengunjung/bulan",
-  //   },
-  //   {
-  //     title: "Kerajinan Lokal",
-  //     description: "Belajar membuat kerajinan tangan dari pengrajin lokal",
-  //     image:
-  //       "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&q=80",
-  //     rating: 4.6,
-  //     visitors: "200+ pengunjung/bulan",
-  //   },
-  // ];
-
   const desaList: Desa[] = [
     {
       id: 1,
-      nama: "Desa Wisata Kebonsari",
-      klasifikasi: "Berkembang",
-      poin: 94,
+      nama: "Desa Wisata Candirejo",
+      klasifikasi: "Maju",
+      poin: 100,
       image:
         "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
-      deskripsi: "Desa wisata dengan panorama alam yang memukau",
-      lokasi: "Kecamatan Magelang Utara",
+      deskripsi:
+        "Desa wisata dengan panorama alam pegunungan yang asri dan udara sejuk.",
+      lokasi: "Kecamatan Borobudur",
     },
     {
       id: 2,
-      nama: "Desa Wisata Kaliurang",
-      klasifikasi: "Berkembang",
-      poin: 85,
+      nama: "Desa Wisata Bigaran",
+      klasifikasi: "Rintisan",
+      poin: 27,
       image:
         "https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800&q=80",
-      deskripsi: "Destinasi wisata pegunungan dengan udara sejuk",
-      lokasi: "Kecamatan Candimulyo",
+      deskripsi:
+        "Destinasi budaya yang menawarkan pengalaman langsung kehidupan tradisional.",
+      lokasi: "Kecamatan Borobudur",
     },
     {
       id: 3,
-      nama: "Desa Wisata Pentingsari",
+      nama: "Desa Wisata Borobudur",
       klasifikasi: "Maju",
-      poin: 102,
+      poin: 98,
       image:
         "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&q=80",
-      deskripsi: "Pengalaman homestay tradisional yang autentik",
-      lokasi: "Kecamatan Pakis",
+      deskripsi:
+        "Menyajikan keindahan hamparan sawah terasering yang memukau bagi para fotografer.",
+      lokasi: "Kecamatan Borobudur",
     },
     {
       id: 4,
-      nama: "Wisata Nglanggeran",
-      klasifikasi: "Maju",
-      poin: 102,
+      nama: "Desa Wisata Bumiharjo",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
       image:
         "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?w=800&q=80",
-      deskripsi: "Wisata gunung dengan pemandangan spektakuler",
-      lokasi: "Kecamatan Grabag",
+      deskripsi:
+        "Tempat wisata edukasi dengan sentra kerajinan tangan khas desa yang unik.",
+      lokasi: "Kecamatan Borobudur",
     },
     {
       id: 5,
-      nama: "Desa Wisata Candirejo",
-      klasifikasi: "Berkembang",
-      poin: 75,
+      nama: "Desa Wisata Giripurno",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
       image:
         "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80",
-      deskripsi: "Wisata budaya dengan nilai sejarah tinggi",
+      deskripsi:
+        "Memiliki kekayaan alam berupa curug dan sungai jernih yang belum banyak terjamah.",
       lokasi: "Kecamatan Borobudur",
     },
     {
       id: 6,
-      nama: "Wisata Ngargomulyo",
-      klasifikasi: "Berkembang",
-      poin: 72,
+      nama: "Desa Wisata Giritengah",
+      klasifikasi: "Rintisan",
+      poin: 34,
       image:
         "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
-      deskripsi: "Desa dengan kerajinan tangan khas lokal",
+      deskripsi:
+        "Menawarkan konsep homestay yang nyaman dengan keramahan penduduk yang luar biasa.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 7,
+      nama: "Desa Wisata Karanganyar",
+      klasifikasi: "Berkembang",
+      poin: 64,
+      image:
+        "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
+      deskripsi:
+        "Kawasan ekowisata yang berfokus pada pelestarian lingkungan dan agroforestri.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 8,
+      nama: "Desa Wisata Karangrejo",
+      klasifikasi: "Maju",
+      poin: 83,
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+      deskripsi:
+        "Terkenal dengan sajian kuliner tradisionalnya yang otentik dan menggugah selera.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 9,
+      nama: "Desa Wisata Kebonsari",
+      klasifikasi: "Rintisan",
+      poin: 54,
+      image:
+        "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=80",
+      deskripsi:
+        "Destinasi favorit untuk aktivitas outbond dan camping bersama keluarga.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 10,
+      nama: "Desa Wisata Kembanglimus",
+      klasifikasi: "Rintisan",
+      poin: 25,
+      image:
+        "https://images.unsplash.com/photo-1523592121529-f6dde35f079e?w=800&q=80",
+      deskripsi:
+        "Desa sejarah yang menyimpan berbagai peninggalan masa lalu yang masih terawat.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 11,
+      nama: "Desa Wisata Kenalan",
+      klasifikasi: "Rintisan",
+      poin: 57,
+      image:
+        "https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80",
+      deskripsi:
+        "Menyajikan atraksi kesenian lokal yang rutin diadakan setiap bulan purnama.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 12,
+      nama: "Desa Wisata Majaksingi",
+      klasifikasi: "Berkembang",
+      poin: 73,
+      image:
+        "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&q=80",
+      deskripsi:
+        "Pusat agrowisata di mana pengunjung bisa ikut panen buah langsung dari kebunnya.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 13,
+      nama: "Desa Wisata Ngadiharjo",
+      klasifikasi: "Rintisan",
+      poin: 22,
+      image:
+        "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=80",
+      deskripsi:
+        "Kawasan yang tenang, cocok untuk melarikan diri sejenak dari hiruk pikuk perkotaan.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 14,
+      nama: "Desa Wisata Ngargogondo",
+      klasifikasi: "Berkembang",
+      poin: 60,
+      image:
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+      deskripsi:
+        "Memiliki spot-spot foto instagenic dengan latar belakang perbukitan hijau.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 15,
+      nama: "Desa Wisata Sambeng",
+      klasifikasi: "Rintisan",
+      poin: 25,
+      image:
+        "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80",
+      deskripsi:
+        "Desa yang mengedepankan kearifan lokal dalam setiap aspek kehidupan masyarakatnya.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 16,
+      nama: "Desa Wisata Tanjungsari",
+      klasifikasi: "Rintisan",
+      poin: 33,
+      image:
+        "https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?w=800&q=80",
+      deskripsi:
+        "Menawarkan jalur pendakian ringan yang cocok untuk pemula dan pecinta alam.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 17,
+      nama: "Desa Wisata Tegalarum",
+      klasifikasi: "Rintisan",
+      poin: 34,
+      image:
+        "https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80",
+      deskripsi:
+        "Terdapat sumber mata air alami yang dipercaya memiliki khasiat kebugaran.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 18,
+      nama: "Desa Wisata Tuksongo",
+      klasifikasi: "Berkembang",
+      poin: 76,
+      image:
+        "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80",
+      deskripsi:
+        "Pusat kerajinan bambu dan kayu yang produknya sudah diekspor ke berbagai negara.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 19,
+      nama: "Desa Wisata Wringinputih",
+      klasifikasi: "Berkembang",
+      poin: 79,
+      image:
+        "https://images.unsplash.com/photo-1455218873509-8097305ee378?w=800&q=80",
+      deskripsi:
+        "Memiliki area konservasi satwa lokal yang dikelola langsung oleh pemuda desa.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 20,
+      nama: "Desa Wisata Wanurejo",
+      klasifikasi: "Maju",
+      poin: 80,
+      image:
+        "https://images.unsplash.com/photo-1414016642750-7fdd78dc33d9?w=800&q=80",
+      deskripsi:
+        "Desa dengan arsitektur rumah tradisional yang masih dipertahankan hingga kini.",
+      lokasi: "Kecamatan Borobudur",
+    },
+    {
+      id: 21,
+      nama: "Desa Wiata Tamanagung",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&q=80",
+      deskripsi:
+        "Menyuguhkan pemandangan matahari terbit yang spektakuler dari gardu pandang desa.",
+      lokasi: "Kecamatan Muntilan",
+    },
+    {
+      id: 22,
+      nama: "Desa Wisata Gunungpring",
+      klasifikasi: "Rintisan",
+      poin: 32,
+      image:
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
+      deskripsi:
+        "Desa wisata dengan panorama alam pegunungan yang asri dan udara sejuk.",
+      lokasi: "Kecamatan Muntilan",
+    },
+    {
+      id: 23,
+      nama: "Desa Wisata Ngawen",
+      klasifikasi: "Berkembang",
+      poin: 77,
+      image:
+        "https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800&q=80",
+      deskripsi:
+        "Destinasi budaya yang menawarkan pengalaman langsung kehidupan tradisional.",
+      lokasi: "Kecamatan Muntilan",
+    },
+    {
+      id: 24,
+      nama: "Desa Wisata Pucungrejo",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&q=80",
+      deskripsi:
+        "Menyajikan keindahan hamparan sawah terasering yang memukau bagi para fotografer.",
+      lokasi: "Kecamatan Muntilan",
+    },
+    {
+      id: 25,
+      nama: "Desa Wisata Banyubiru",
+      klasifikasi: "Berkembang",
+      poin: 67,
+      image:
+        "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?w=800&q=80",
+      deskripsi:
+        "Tempat wisata edukasi dengan sentra kerajinan tangan khas desa yang unik.",
       lokasi: "Kecamatan Dukun",
+    },
+    {
+      id: 26,
+      nama: "Desa Wisata Sumber",
+      klasifikasi: "Rintisan",
+      poin: 48,
+      image:
+        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80",
+      deskripsi:
+        "Memiliki kekayaan alam berupa curug dan sungai jernih yang belum banyak terjamah.",
+      lokasi: "Kecamatan Dukun",
+    },
+    {
+      id: 27,
+      nama: "Desa Wisata Kalibening",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+      deskripsi:
+        "Menawarkan konsep homestay yang nyaman dengan keramahan penduduk yang luar biasa.",
+      lokasi: "Kecamatan Dukun",
+    },
+    {
+      id: 28,
+      nama: "Desa Wisata Ngargoretno",
+      klasifikasi: "Berkembang",
+      poin: 68,
+      image:
+        "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
+      deskripsi:
+        "Kawasan ekowisata yang berfokus pada pelestarian lingkungan dan agroforestri.",
+      lokasi: "Kecamatan Salaman",
+    },
+    {
+      id: 29,
+      nama: "Desa Wisata Ngargosoko",
+      klasifikasi: "Berkembang",
+      poin: 60,
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+      deskripsi:
+        "Terkenal dengan sajian kuliner tradisionalnya yang otentik dan menggugah selera.",
+      lokasi: "Kecamatan Srumbung",
+    },
+    {
+      id: 30,
+      nama: "Desa Wisata Banyuroto",
+      klasifikasi: "Rintisan",
+      poin: 30,
+      image:
+        "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=80",
+      deskripsi:
+        "Destinasi favorit untuk aktivitas outbond dan camping bersama keluarga.",
+      lokasi: "Kecamatan Sawangan",
+    },
+    {
+      id: 31,
+      nama: "Desa Wisata Ketep",
+      klasifikasi: "Rintisan",
+      poin: 47,
+      image:
+        "https://images.unsplash.com/photo-1523592121529-f6dde35f079e?w=800&q=80",
+      deskripsi:
+        "Desa sejarah yang menyimpan berbagai peninggalan masa lalu yang masih terawat.",
+      lokasi: "Kecamatan Sawangan",
+    },
+    {
+      id: 32,
+      nama: "Desa Wisata Mangunsari",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80",
+      deskripsi:
+        "Menyajikan atraksi kesenian lokal yang rutin diadakan setiap bulan purnama.",
+      lokasi: "Kecamatan Sawangan",
+    },
+    {
+      id: 33,
+      nama: "Desa Wisata Sutopati",
+      klasifikasi: "Rintisan",
+      poin: 37,
+      image:
+        "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&q=80",
+      deskripsi:
+        "Pusat agrowisata di mana pengunjung bisa ikut panen buah langsung dari kebunnya.",
+      lokasi: "Kecamatan Kajoran",
+    },
+    {
+      id: 34,
+      nama: "Desa Wisata Sambak",
+      klasifikasi: "Rintisan",
+      poin: 29,
+      image:
+        "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=80",
+      deskripsi:
+        "Kawasan yang tenang, cocok untuk melarikan diri sejenak dari hiruk pikuk perkotaan.",
+      lokasi: "Kecamatan Kajoran",
+    },
+    {
+      id: 35,
+      nama: "Desa Wisata Jamuskauman",
+      klasifikasi: "Rintisan",
+      poin: 33,
+      image:
+        "https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80",
+      deskripsi:
+        "Memiliki spot-spot foto instagenic dengan latar belakang perbukitan hijau.",
+      lokasi: "Kecamatan Ngluwar",
+    },
+    {
+      id: 36,
+      nama: "Desa Wisata Bawang",
+      klasifikasi: "Rintisan",
+      poin: 41,
+      image:
+        "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80",
+      deskripsi:
+        "Desa yang mengedepankan kearifan lokal dalam setiap aspek kehidupan masyarakatnya.",
+      lokasi: "Kecamatan Tempuran",
+    },
+    {
+      id: 37,
+      nama: "Desa Wisata Prajeksari",
+      klasifikasi: "Rintisan",
+      poin: 26,
+      image:
+        "https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?w=800&q=80",
+      deskripsi:
+        "Menawarkan jalur pendakian ringan yang cocok untuk pemula dan pecinta alam.",
+      lokasi: "Kecamatan Tempuran",
+    },
+    {
+      id: 38,
+      nama: "Desa Wisata Adipuro",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+      deskripsi:
+        "Terdapat sumber mata air alami yang dipercaya memiliki khasiat kebugaran.",
+      lokasi: "Kecamatan Kaliangkrik",
+    },
+    {
+      id: 39,
+      nama: "Desa Wisata Mangli",
+      klasifikasi: "Rintisan",
+      poin: 44,
+      image:
+        "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80",
+      deskripsi:
+        "Pusat kerajinan bambu dan kayu yang produknya sudah diekspor ke berbagai negara.",
+      lokasi: "Kecamatan Kaliangkrik",
+    },
+    {
+      id: 40,
+      nama: "Desa Wisata Munggangsari",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1455218873509-8097305ee378?w=800&q=80",
+      deskripsi:
+        "Memiliki area konservasi satwa lokal yang dikelola langsung oleh pemuda desa.",
+      lokasi: "Kecamatan Kaliangkrik",
+    },
+    {
+      id: 41,
+      nama: "Desa Wisata Banyusari",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1414016642750-7fdd78dc33d9?w=800&q=80",
+      deskripsi:
+        "Desa dengan arsitektur rumah tradisional yang masih dipertahankan hingga kini.",
+      lokasi: "Kecamatan Grabag",
+    },
+    {
+      id: 42,
+      nama: "Desa Wisata Ngrancah",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&q=80",
+      deskripsi:
+        "Menyuguhkan pemandangan matahari terbit yang spektakuler dari gardu pandang desa.",
+      lokasi: "Kecamatan Grabag",
+    },
+    {
+      id: 43,
+      nama: "Desa Wisata Girikulon",
+      klasifikasi: "Rintisan",
+      poin: 58,
+      image:
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
+      deskripsi:
+        "Desa wisata dengan panorama alam pegunungan yang asri dan udara sejuk.",
+      lokasi: "Kecamatan Secang",
+    },
+    {
+      id: 44,
+      nama: "Desa Wisata Kembangkuning",
+      klasifikasi: "Rintisan",
+      poin: 36,
+      image:
+        "https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800&q=80",
+      deskripsi:
+        "Destinasi budaya yang menawarkan pengalaman langsung kehidupan tradisional.",
+      lokasi: "Kecamatan Windusari",
+    },
+    {
+      id: 45,
+      nama: "Desa Wisata Mangunsari",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800&q=80",
+      deskripsi:
+        "Menyajikan keindahan hamparan sawah terasering yang memukau bagi para fotografer.",
+      lokasi: "Kecamatan Windusari",
+    },
+    {
+      id: 46,
+      nama: "Desa Wisata Mendut",
+      klasifikasi: "Rintisan",
+      poin: 49,
+      image:
+        "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?w=800&q=80",
+      deskripsi:
+        "Tempat wisata edukasi dengan sentra kerajinan tangan khas desa yang unik.",
+      lokasi: "Kecamatan Mungkid",
+    },
+    {
+      id: 47,
+      nama: "Desa Wisata Senden",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80",
+      deskripsi:
+        "Memiliki kekayaan alam berupa curug dan sungai jernih yang belum banyak terjamah.",
+      lokasi: "Kecamatan Mungkid",
+    },
+    {
+      id: 48,
+      nama: "Desa Wisata Munengwarangan",
+      klasifikasi: "Rintisan",
+      poin: 27,
+      image:
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+      deskripsi:
+        "Menawarkan konsep homestay yang nyaman dengan keramahan penduduk yang luar biasa.",
+      lokasi: "Kecamatan Pakis",
+    },
+    {
+      id: 49,
+      nama: "Desa Wisata Pagergunung",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80",
+      deskripsi:
+        "Kawasan ekowisata yang berfokus pada pelestarian lingkungan dan agroforestri.",
+      lokasi: "Kecamatan Ngablak",
+    },
+    {
+      id: 50,
+      nama: "Desa Wisata Seloprojo",
+      klasifikasi: "Rintisan",
+      poin: 25,
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
+      deskripsi:
+        "Terkenal dengan sajian kuliner tradisionalnya yang otentik dan menggugah selera.",
+      lokasi: "Kecamatan Ngablak",
+    },
+    {
+      id: 51,
+      nama: "Desa Wisata Banyusari",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=80",
+      deskripsi:
+        "Destinasi favorit untuk aktivitas outbond dan camping bersama keluarga.",
+      lokasi: "Kecamatan Tegalrejo",
+    },
+    {
+      id: 52,
+      nama: "Desa Wisata Sukorejo",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1523592121529-f6dde35f079e?w=800&q=80",
+      deskripsi:
+        "Desa sejarah yang menyimpan berbagai peninggalan masa lalu yang masih terawat.",
+      lokasi: "Kecamatan Mertoyudan",
+    },
+    {
+      id: 53,
+      nama: "Desa Wisata Bawang",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1604999333679-b86d54738315?w=800&q=80",
+      deskripsi:
+        "Menyajikan atraksi kesenian lokal yang rutin diadakan setiap bulan purnama.",
+      lokasi: "Kecamatan Pakis",
+    },
+    {
+      id: 54,
+      nama: "Desa Wisata Temanggung",
+      klasifikasi: "Berkembang",
+      poin: 71,
+      image:
+        "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&q=80",
+      deskripsi:
+        "Pusat agrowisata di mana pengunjung bisa ikut panen buah langsung dari kebunnya.",
+      lokasi: "Kecamatan Kaliangkrik",
+    },
+    {
+      id: 55,
+      nama: "Desa Wisata Kebonlegi",
+      klasifikasi: "Rintisan",
+      poin: 56,
+      image:
+        "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=800&q=80",
+      deskripsi:
+        "Kawasan yang tenang, cocok untuk melarikan diri sejenak dari hiruk pikuk perkotaan.",
+      lokasi: "Kecamatan Kaliangkrik",
+    },
+    {
+      id: 56,
+      nama: "Desa Wisata Pogalan",
+      klasifikasi: "Berkembang",
+      poin: 66,
+      image:
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+      deskripsi:
+        "Memiliki spot-spot foto instagenic dengan latar belakang perbukitan hijau.",
+      lokasi: "Kecamatan Pakis",
+    },
+    {
+      id: 57,
+      nama: "Desa Wisata Temanggal",
+      klasifikasi: "Rintisan",
+      poin: 24,
+      image:
+        "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80",
+      deskripsi:
+        "Desa yang mengedepankan kearifan lokal dalam setiap aspek kehidupan masyarakatnya.",
+      lokasi: "Kecamatan Tempuran",
+    },
+    {
+      id: 58,
+      nama: "Desa Wisata Polengan",
+      klasifikasi: "Berkembang",
+      poin: 61,
+      image:
+        "https://images.unsplash.com/photo-1510784722466-f2aa9c52fff6?w=800&q=80",
+      deskripsi:
+        "Menawarkan jalur pendakian ringan yang cocok untuk pemula dan pecinta alam.",
+      lokasi: "Kecamatan Srumbung",
+    },
+    {
+      id: 59,
+      nama: "Desa Wisata Sukomakmur",
+      klasifikasi: "Berkembang",
+      poin: 67,
+      image:
+        "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+      deskripsi:
+        "Terdapat sumber mata air alami yang dipercaya memiliki khasiat kebugaran.",
+      lokasi: "Kecamatan Kajoran",
+    },
+    {
+      id: 60,
+      nama: "Desa Wisata Wonolelo",
+      klasifikasi: "Berkembang",
+      poin: 69,
+      image:
+        "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80",
+      deskripsi:
+        "Pusat kerajinan bambu dan kayu yang produknya sudah diekspor ke berbagai negara.",
+      lokasi: "Kecamatan Sawangan",
+    },
+    {
+      id: 61,
+      nama: "Desa Wisata Sukosari",
+      klasifikasi: "Rintisan",
+      poin: 25,
+      image:
+        "https://images.unsplash.com/photo-1455218873509-8097305ee378?w=800&q=80",
+      deskripsi:
+        "Memiliki area konservasi satwa lokal yang dikelola langsung oleh pemuda desa.",
+      lokasi: "Kecamatan Bandongan",
+    },
+    {
+      id: 62,
+      nama: "Desa Wisata Keditan",
+      klasifikasi: "Belum Diklasifikasi",
+      poin: 0,
+      image:
+        "https://images.unsplash.com/photo-1414016642750-7fdd78dc33d9?w=800&q=80",
+      deskripsi:
+        "Desa dengan arsitektur rumah tradisional yang masih dipertahankan hingga kini.",
+      lokasi: "Kecamatan Ngablak",
+    },
+    {
+      id: 63,
+      nama: "Desa Wisata Paremono",
+      klasifikasi: "Rintisan",
+      poin: 26,
+      image:
+        "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&q=80",
+      deskripsi:
+        "Menyuguhkan pemandangan matahari terbit yang spektakuler dari gardu pandang desa.",
+      lokasi: "Kecamatan Mungkid",
+    },
+    {
+      id: 64,
+      nama: "Desa Wisata Pancuranmas",
+      klasifikasi: "Rintisan",
+      poin: 44,
+      image:
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
+      deskripsi:
+        "Desa wisata dengan panorama alam pegunungan yang asri dan udara sejuk.",
+      lokasi: "Kecamatan Secang",
+    },
+    {
+      id: 65,
+      nama: "Desa Wisata Kalijoso",
+      klasifikasi: "Rintisan",
+      poin: 37,
+      image:
+        "https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800&q=80",
+      deskripsi:
+        "Destinasi budaya yang menawarkan pengalaman langsung kehidupan tradisional.",
+      lokasi: "Kecamatan Secang",
     },
   ];
 
@@ -420,7 +1042,6 @@ const App = () => {
       desc: "Jelajahi keindahan alam desa",
     },
   ];
-  
 
   const [destination, setDestination] = useState(0);
   const [wisatawan, setWisatawan] = useState(0);
@@ -997,7 +1618,7 @@ const App = () => {
                     {/* Badge Klasifikasi (Top Right) */}
                     <Badge
                       className={`absolute right-3 top-3 z-20 shadow-sm border-0 ${getBadgeColor(
-                        desa.klasifikasi
+                        desa.klasifikasi,
                       )}`}
                     >
                       {desa.klasifikasi}
@@ -1131,7 +1752,6 @@ const App = () => {
       : null;
 
     return (
-
       <>
         {/* Navbar */}
         <nav className="bg-white shadow-md sticky top-0 z-50 mb-4">
@@ -1213,7 +1833,6 @@ const App = () => {
         </nav>
 
         <div className="min-h-screen p-4 md:p-0">
-
           <div className="mx-auto max-w-4xl space-y-6">
             {/* 1. Navigation Back */}
             <motion.div
@@ -1448,7 +2067,7 @@ const App = () => {
             </motion.div>
 
             {/* 3. Content Area: Switch between Grid and Detail */}
-            <AnimatePresence mode="wait">
+            {/* <AnimatePresence mode="wait">
               {!selectedKriteria ? (
                 // --- STATE A: LIST KRITERIA (GRID) ---
                 <motion.div
@@ -1541,7 +2160,7 @@ const App = () => {
                     <CardContent className="p-6 sm:p-8 space-y-8">
                       {currentNilai && (
                         <>
-                          {/* Section 1: Score Visualization */}
+
                           <div className="grid gap-6 md:grid-cols-2">
                             <div className="space-y-2">
                               <span className="text-sm font-medium text-slate-500">
@@ -1583,10 +2202,9 @@ const App = () => {
                                 </span>
                               </div>
 
-                              {/* Status Banner */}
                               <div
                                 className={`flex items-center gap-3 rounded-lg border p-3 ${getStatusColor(
-                                  currentNilai.persentase
+                                  currentNilai.persentase,
                                 )}`}
                               >
                                 {currentNilai.persentase >= 70 ? (
@@ -1602,10 +2220,10 @@ const App = () => {
                                     {currentNilai.persentase >= 80
                                       ? "Sangat Baik"
                                       : currentNilai.persentase >= 70
-                                      ? "Baik"
-                                      : currentNilai.persentase >= 60
-                                      ? "Cukup"
-                                      : "Perlu Peningkatan"}
+                                        ? "Baik"
+                                        : currentNilai.persentase >= 60
+                                          ? "Cukup"
+                                          : "Perlu Peningkatan"}
                                   </p>
                                 </div>
                               </div>
@@ -1614,7 +2232,6 @@ const App = () => {
 
                           <Separator />
 
-                          {/* Section 2: Deskripsi */}
                           <div>
                             <h4 className="flex items-center gap-2 text-sm font-semibold text-slate-900 mb-3">
                               <Info className="h-4 w-4 text-green-500" />
@@ -1631,7 +2248,7 @@ const App = () => {
                   <ScoringTable scoreId={selectedKriteria.id}></ScoringTable>
                 </motion.div>
               )}
-            </AnimatePresence>
+            </AnimatePresence> */}
           </div>
         </div>
 
